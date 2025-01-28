@@ -15,12 +15,18 @@ st.set_page_config(page_title="Excel Data Visualization", layout="wide")
 st.markdown("<h1 style='text-align: center;'>Excel Data Visualization App</h1>", unsafe_allow_html=True)
 
 # File uploader
-uploaded_file = st.file_uploader("Upload an Excel file", type=["xlsx", "xls","csv"])
+uploaded_file = st.file_uploader("Upload an Excel file", type=["xlsx", "xls", "csv"])
 
 if uploaded_file:
     try:
-        # Load the uploaded file into a DataFrame
-        df = pd.read_excel(uploaded_file)
+        # Check the file extension and load accordingly
+        if uploaded_file.name.endswith('.xlsx'):
+            df = pd.read_excel(uploaded_file, engine='openpyxl')  # Specify the engine for .xlsx files
+        elif uploaded_file.name.endswith('.xls'):
+            df = pd.read_excel(uploaded_file, engine='xlrd')  # Specify the engine for .xls files
+        elif uploaded_file.name.endswith('.csv'):
+            df = pd.read_csv(uploaded_file)  # Use read_csv for CSV files
+
         st.write("### Uploaded Dataset")
         st.dataframe(df)
 
