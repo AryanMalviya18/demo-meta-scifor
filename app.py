@@ -15,7 +15,7 @@ st.set_page_config(page_title="Excel Data Visualization", layout="wide")
 st.markdown("<h1 style='text-align: center;'>Excel Data Visualization App</h1>", unsafe_allow_html=True)
 
 # File uploader
-uploaded_file = st.file_uploader("Upload an Excel file", type=["xlsx", "xls"])
+uploaded_file = st.file_uploader("Upload an Excel file", type=["xlsx", "xls","csv"])
 
 if uploaded_file:
     try:
