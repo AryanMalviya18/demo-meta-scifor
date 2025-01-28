@@ -3,7 +3,7 @@ import pandas as pd
 import openai
 
 # Set OpenAI API Key (Replace with your key)
-openai.api_key = "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"
+openai.api_key = "you openai api key"
 
 # Streamlit Web App
 st.set_page_config(page_title="Excel Data Visualization", layout="wide")
