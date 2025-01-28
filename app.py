@@ -1,9 +1,12 @@
 import streamlit as st
 import pandas as pd
 import openai
+from dotenv import load_dotenv
+import os
 
-# Set OpenAI API Key (Replace with your key)
-openai.api_key = "you openai api key"
+# Load the API key from .env file
+load_dotenv()
+openai.api_key = os.getenv("OPENAI_API_KEY")
 
 # Streamlit Web App
 st.set_page_config(page_title="Excel Data Visualization", layout="wide")
@@ -36,13 +39,15 @@ if uploaded_file:
         if st.button("Generate AI Summary"):
             prompt = f"Provide a summary of this dataset:\n\n{df.head(5).to_string()}"
             try:
-                response = openai.Completion.create(
-                    engine="text-davinci-003",
-                    prompt=prompt,
-                    max_tokens=100,
+                response = openai.ChatCompletion.create(
+                    model="gpt-3.5-turbo",  # Updated model
+                    messages=[
+                        {"role": "system", "content": "You are a helpful assistant."},
+                        {"role": "user", "content": prompt}
+                    ]
                 )
                 st.write("### AI Summary")
-                st.success(response.choices[0].text.strip())
+                st.success(response['choices'][0]['message']['content'].strip())
             except Exception as e:
                 st.error("Error generating summary: " + str(e))
     except Exception as e:
