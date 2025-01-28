@@ -41,21 +41,21 @@ if uploaded_file:
             st.write("### Visualization")
             st.line_chart(df[[x_axis, y_axis]])
 
-        # Generating a summary using OpenAI (optional)
-        if st.button("Generate AI Summary"):
-            prompt = f"Provide a summary of this dataset:\n\n{df.head(5).to_string()}"
-            try:
-                response = openai.ChatCompletion.create(
-                    model="gpt-3.5-turbo",  # Updated model
-                    messages=[
-                        {"role": "system", "content": "You are a helpful assistant."},
-                        {"role": "user", "content": prompt}
-                    ]
-                )
-                st.write("### AI Summary")
-                st.success(response['choices'][0]['message']['content'].strip())
-            except Exception as e:
-                st.error("Error generating summary: " + str(e))
+        # # Generating a summary using OpenAI (optional)
+        # if st.button("Generate AI Summary"):
+        #     prompt = f"Provide a summary of this dataset:\n\n{df.head(5).to_string()}"
+        #     try:
+        #         response = openai.ChatCompletion.create(
+        #             model="gpt-3.5-turbo",  # Updated model
+        #             messages=[
+        #                 {"role": "system", "content": "You are a helpful assistant."},
+        #                 {"role": "user", "content": prompt}
+        #             ]
+        #         )
+        #         st.write("### AI Summary")
+        #         st.success(response['choices'][0]['message']['content'].strip())
+        #     except Exception as e:
+        #         st.error("Error generating summary: " + str(e))
     except Exception as e:
         st.error(f"Error processing file: {str(e)}")
 
